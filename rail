@@ -1,0 +1,230 @@
+import random
+class Train:
+    name= "Indian Railways"
+    fr=["5000","2410","1200"]
+    tsheet='300'
+    trn_name=["Rajdhani Express","Samantha Intercity","Duranto Express","Chandigarh Express","Gorakhpur Superfast","Humsafar Express"]
+    trn_no=["12555","12565","15069","12572","11058","22425"]
+    def __init__(self,tn,tname,src,dest,date):
+        self.tn=tn
+        self.tname=tname
+        self.src=src
+        self.dest=dest
+        self.date=date
+        # self.tsheet=tsheet
+        # self.fr=fr
+
+    def bookTicket(self):
+        print(f"Congratulation! Train Number : '{self.tn} , {self.tname} has been booked")
+    def getStatus(self):
+        # ran=random.randint(0, 2)
+        print(f"Train Info: {self.tn},from '{self.src}' to '{self.dest}' on '{self.date}' ,there are total '{Train.tsheet}' sheets  available ")
+        print(f"Remaining sheets are : {int(Train.tsheet) - 1}")
+    def getFare(self):
+        frt=random.randint(0, 2)
+        print(f"Ticket fare is '{Train.fr[frt]}'")
+class Canc:        
+    def cancelTicket(self,can,can1,can3):
+        print(f"Congratulation! your ticket has been cancelled: Train number {can} , name {can1} and travel date was {can3}")
+        Train.tsheet=int(Train.tsheet) + 1
+        print(f"Now total available sheet is : {Train.tsheet}")
+train_name_number= input("1.Type 'A' To check By Train Number!\n2.Type 'B' to check by Train Name\n3.Type 'C' for Ticket Cancel\n").lower()
+if train_name_number == "a":
+    tn=input(f"pls enter train number from {Train.trn_no}:\n")
+    if tn in Train.trn_no:
+        date_of_book= input("Pls enter date of travel: \n")
+        source=input("Enter Source: \n")
+        destination=input("Enter destination: \n")
+        getInquiry = Train(tn,Train.trn_name[Train.trn_no.index(tn)],source,destination,date_of_book)
+        print(f"********************{Train.name}**********************")
+        getInquiry.bookTicket()
+        getInquiry.getStatus()
+        getInquiry.getFare()
+        while tn == True:
+            break
+    else:
+        while True:
+            tn=input(f"pls enter train number only from this list {Train.trn_no}:\n")
+            if tn in Train.trn_no:
+                date_of_book= input("Pls enter date of travel: \n")
+                source=input("Enter Source: \n")
+                destination=input("Enter destination: \n")
+                getInquiry = Train(tn,Train.trn_name[Train.trn_no.index(tn)],source,destination,date_of_book)
+                print(f"********************{Train.name}**********************")
+                getInquiry.bookTicket()
+                getInquiry.getStatus()
+                getInquiry.getFare()
+                break
+elif train_name_number == "b":
+    tname=input(f"Pls enter train name from {Train.trn_name}: \n")
+    if tname in Train.trn_name:
+        date_of_book= input("Pls enter date of travel: \n")
+        source=input("Enter Source: \n")
+        destination=input("Enter destination: \n")
+        getInquiry = Train(Train.trn_no[Train.trn_name.index(tname)],Train.trn_name,source,destination,date_of_book)
+        print(f"********************{Train.name}**********************")
+        getInquiry.bookTicket()
+        getInquiry.getStatus()
+        getInquiry.getFare()
+        while tname == True:
+            break
+    else:
+        while True:
+            tname=input(f"Pls enter train name only from this list {Train.trn_name}: \n")
+            if tname in Train.trn_name:
+                date_of_book= input("Pls enter date of travel: \n")
+                source=input("Enter Source: \n")
+                destination=input("Enter destination: \n")
+                getInquiry = Train(Train.trn_no[Train.trn_name.index(tname)],tname,source,destination,date_of_book)
+                print(f"********************{Train.name}**********************")
+                getInquiry.bookTicket()
+                getInquiry.getStatus()
+                getInquiry.getFare()
+                break  
+elif train_name_number == "c": 
+    print(f"Current available sheets is {Train.tsheet}:\n")
+    can = input(f"Pls enter booked train number, for ref.{Train.trn_no}:\n")
+    can1 = input(f"Pls enter booked train name, for ref.{Train.trn_name}:\n")
+    can3 = input("Pls enter date of travel, you would have!\n")
+    if can in Train.trn_no:
+        if can1 in Train.trn_name:
+            if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                cancel=Canc()
+                cancel.cancelTicket(can,can1,can3)
+                while Train.trn_no.index(can) == Train.trn_name.index(can1):
+                 break
+            else:
+                print("Train Number and its respective name do not match !Error 53,\nPls check both details once\n") 
+                while True:
+                    can = input(f"Pls enter booked train number correctly, for ref.\n{Train.trn_no}:\n")
+                    can1 = input(f"Pls enter booked train name of above train number, for ref.\n{Train.trn_name}:\n")
+                    can3 = input("Pls enter date of travel, you would have!\n")
+                    if can in Train.trn_no:
+                        if can1 in Train.trn_name:
+                            if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                                cancel=Canc()
+                                cancel.cancelTicket(can,can1,can3)
+                                break               
+        else:
+            print(f"Error! entered train name is not found in this list{Train.trn_name}\n \npls enter correct train name")
+            while True:
+                can1 = input(f"Pls enter booked train name correctly, for ref.\n{Train.trn_name}:\n")
+                can3 = input("Pls enter date of travel, you would have!\n")
+                if can in Train.trn_no:
+                    if can1 in Train.trn_name:
+                        if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                            cancel=Canc()
+                            cancel.cancelTicket(can,can1,can3)
+                            break
+    else:
+        print(f"Error! entered train number is not found in this list{Train.trn_no} \npls enter correct train number")
+        while True:
+            can = input(f"Pls enter booked train number correctly, for ref.{Train.trn_no}:\n")
+            can1 = input(f"Pls enter booked train name of above train number, for ref.{Train.trn_name}:\n")
+            can3 = input("Pls enter date of travel, you would have!\n")
+            if can in Train.trn_no:
+                if can1 in Train.trn_name:
+                    if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                        cancel=Canc()
+                        cancel.cancelTicket(can,can1,can3)
+                        break
+else:
+    while True:
+        train_name_number= input("$$Ohh! do not be in hurry!! Pls watch what is this input asking for??$$\n1.Type 'A' To check By Train Number!\n2.Type 'B' to check by Train Name\n3.Type 'C' for Ticket Cancel\n").lower()
+        if train_name_number == "a":
+            tn=input(f"pls enter train number from {Train.trn_no}:\n")
+            if tn in Train.trn_no:
+                date_of_book= input("Pls enter date of travel: \n")
+                source=input("Enter Source: \n")
+                destination=input("Enter destination: \n")
+                getInquiry = Train(tn,Train.trn_name[Train.trn_no.index(tn)],source,destination,date_of_book)
+                print(f"********************{Train.name}**********************")
+                getInquiry.bookTicket()
+                getInquiry.getStatus()
+                getInquiry.getFare()
+                break
+            else:
+                while True:
+                    tn=input(f"pls enter train number only from this list {Train.trn_no}:\n")
+                    if tn in Train.trn_no:
+                        date_of_book= input("Pls enter date of travel: \n")
+                        source=input("Enter Source: \n")
+                        destination=input("Enter destination: \n")
+                        getInquiry = Train(tn,Train.trn_name[Train.trn_no.index(tn)],source,destination,date_of_book)
+                        print(f"********************{Train.name}**********************")
+                        getInquiry.bookTicket()
+                        getInquiry.getStatus()
+                        getInquiry.getFare()
+                        break
+        elif train_name_number == "b":
+            tname=input(f"Pls enter train name from {Train.trn_name}: \n")
+            if tname in Train.trn_name:
+                date_of_book= input("Pls enter date of travel: \n")
+                source=input("Enter Source: \n")
+                destination=input("Enter destination: \n")
+                getInquiry = Train(Train.trn_no[Train.trn_name.index(tname)],Train.trn_name,source,destination,date_of_book)
+                print(f"********************{Train.name}**********************")
+                getInquiry.bookTicket()
+                getInquiry.getStatus()
+                getInquiry.getFare()
+                while tname == True:
+                    break 
+            else:
+                while True:
+                    tname=input(f"Pls enter train name only from this list {Train.trn_name}: \n")
+                    if tname in Train.trn_name:
+                        date_of_book= input("Pls enter date of travel: \n")
+                        source=input("Enter Source: \n")
+                        destination=input("Enter destination: \n")
+                        getInquiry = Train(Train.trn_no[Train.trn_name.index(tname)],tname,source,destination,date_of_book)
+                        print(f"********************{Train.name}**********************")
+                        getInquiry.bookTicket()
+                        getInquiry.getStatus()
+                        getInquiry.getFare()
+                        break
+        elif train_name_number == "c": 
+            print(f"Current available sheets is \n{Train.tsheet}:\n")
+            can = input(f"Pls enter booked train number, for ref.\n{Train.trn_no}:\n")
+            can1 = input(f"Pls enter booked train name, for ref.\n{Train.trn_name}:\n")
+            can3 = input("Pls enter date of travel, you would have!\n")
+            if can in Train.trn_no:
+                if can1 in Train.trn_name:
+                    if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                        cancel=Canc()
+                        cancel.cancelTicket(can,can1,can3)
+                        break
+                    else:
+                        print("Train name and its respective name do not match !Error 53,\nPls check both details once\n") 
+                        while True:
+                            can = input(f"Pls enter booked train number correctly, for ref.\n{Train.trn_no}:\n")
+                            can1 = input(f"Pls enter booked train name of above train number, for ref.\n{Train.trn_name}:\n")
+                            can3 = input("Pls enter date of travel, you would have!\n")
+                            if can in Train.trn_no:
+                                if can1 in Train.trn_name:
+                                    if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                                        cancel=Canc()
+                                        cancel.cancelTicket(can,can1,can3)
+                                        break               
+                else:
+                    print(f"Error! entered train name is not found in this list\n{Train.trn_name} \npls enter correct train name")
+                    while True:
+                        can1 = input(f"Pls enter booked train name correctly, for ref.\n{Train.trn_name}:\n")
+                        can3 = input("Pls enter date of travel, you would have!\n")
+                        if can in Train.trn_no:
+                            if can1 in Train.trn_name:
+                                if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                                    cancel=Canc()
+                                    cancel.cancelTicket(can,can1,can3)
+                                    break
+            else:
+                print(f"Error! entered train number is not found in this list\n{Train.trn_no} \npls enter correct train number")
+                while True:
+                    can = input(f"Pls enter booked train number correctly, for ref.\n{Train.trn_no}:\n")
+                    can1 = input(f"Pls enter booked train name of above train number, for ref.\n{Train.trn_name}:\n")
+                    can3 = input("Pls enter date of travel, you would have!\n")
+                    if can in Train.trn_no:
+                        if can1 in Train.trn_name:
+                            if Train.trn_no.index(can) == Train.trn_name.index(can1):
+                                cancel=Canc()
+                                cancel.cancelTicket(can,can1,can3)
+                                break
